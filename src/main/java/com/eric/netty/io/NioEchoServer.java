@@ -70,7 +70,7 @@ public class NioEchoServer {
                         // 数据加载到byte数组中
                         buffer.get(byteArray);
                         // 替换换行符
-                        String msg = new String(byteArray, StandardCharsets.UTF_8.name()).replace("\r\n", "");
+                        String msg = new String(byteArray, StandardCharsets.UTF_8).replace("\r\n", "");
                         log.info("receive msg: {}", msg);
                     }
                 }

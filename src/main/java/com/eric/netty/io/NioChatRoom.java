@@ -27,7 +27,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @date 2021-03-17
  */
 @Slf4j
-public class ChatRoom {
+public class NioChatRoom {
 
     public static void main(String[] args) throws IOException {
         log.info("start chat room");
@@ -38,7 +38,7 @@ public class ChatRoom {
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         log.info("open chat room");
         while (true) {
-            selector.select();
+            selector.select();//阻塞在此
             Set<SelectionKey> selectionKeys = selector.selectedKeys();
             Iterator<SelectionKey> iterator = selectionKeys.iterator();
             while (iterator.hasNext()) {
@@ -46,7 +46,7 @@ public class ChatRoom {
                 if (selectionKey.isAcceptable()) {
                     ServerSocketChannel socketChannel = (ServerSocketChannel) selectionKey.channel();
                     SocketChannel channel = socketChannel.accept();
-                    log.info("accept  new conn: {}", channel.getRemoteAddress());
+                    log.info("accept new conn: {}", channel.getRemoteAddress());
                     channel.configureBlocking(false);
                     channel.register(selector, SelectionKey.OP_READ);
                     ChatHolder.join(channel);
@@ -58,7 +58,7 @@ public class ChatRoom {
                         byteBuffer.flip();
                         byte[] bytes = new byte[byteBuffer.remaining()];
                         byteBuffer.get(bytes);
-                        String msg = new String(bytes, StandardCharsets.UTF_8.name()).replace("\r\n", "");
+                        String msg = new String(bytes, StandardCharsets.UTF_8).replace("\r\n", "");
                         if ("quit".equalsIgnoreCase(msg)) {
                             ChatHolder.quit(socketChannel);
                             selectionKey.cancel();

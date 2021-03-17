@@ -48,7 +48,7 @@ public class AioEchoServer {
                             byte[] byteArr = new byte[byteBuffer.remaining()];
                             // 数据读入到byte数组中
                             byteBuffer.get(byteArr);
-                            String str = new String(byteArr, StandardCharsets.UTF_8.name());
+                            String str = new String(byteArr, StandardCharsets.UTF_8);
                             // 换行符当成另一条消息传过来
                             if ("\r\n".equals(str)) {
                                 continue;
