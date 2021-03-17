@@ -1,5 +1,7 @@
 package com.eric.netty.io;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +9,6 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Objects;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Java BIO
@@ -16,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2021-03-16
  */
 @Slf4j
-public class BIOEchoServer {
+public class BioEchoServer {
 
 
     public static void main(String[] args) throws IOException {
