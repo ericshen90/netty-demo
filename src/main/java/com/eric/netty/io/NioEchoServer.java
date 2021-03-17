@@ -23,14 +23,14 @@ import java.util.Set;
 public class NioEchoServer {
 
     public static void main(String[] args) throws IOException {
-        // 创建一个Selector
-        Selector selector = Selector.open();
         // 创建一个Server
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         // 绑定端口
         serverSocketChannel.bind(new InetSocketAddress(8002));
         // 设为非阻塞
         serverSocketChannel.configureBlocking(false);
+        // 创建一个Selector(IO 多路复用)
+        Selector selector = Selector.open();
         // 绑定selector,设置accept模式
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
